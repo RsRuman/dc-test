@@ -23,14 +23,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . /var/www
 
-# Set correct permissions
+# Set correct permissions before switching users
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 /var/www
 
-# Install Laravel dependencies
+# Switch to www-data and install dependencies
 USER www-data
 RUN composer install --no-dev --optimize-autoloader
-RUN php artisan key:generate
 
 # Ensuring storae and cache exist and set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache

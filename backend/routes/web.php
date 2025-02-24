@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    \Illuminate\Support\Facades\Log::info('test', ['message' => 'test']);
     return view('welcome');
 });
 
